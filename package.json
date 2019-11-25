@@ -54,6 +54,7 @@
     "mocha": "^6.2.2",
     "npm-check": "^5.9.0",
     "nyc": "^14.1.1",
+    "readdir-enhanced": "^5.1.1",
     "shx": "^0.3.2",
     "sinon": "^7.5.0",
     "source-map-support": "^0.5.16",

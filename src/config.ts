@@ -1,5 +1,5 @@
 import { Filter } from "@code-engine/types";
-import { MakeDirectoryOptions, NoParamCallback } from "fs";
+import { MakeDirectoryOptions, NoParamCallback, WriteFileOptions } from "fs";
 
 /**
  * Configuration for the fileystem destination plugin.
@@ -39,5 +39,5 @@ export interface FS {
   /**
    * Writes data to a file, replacing the file if it already exists.
    */
-  writeFile(path: string, data: Buffer, options: object, callback: NoParamCallback): void;
+  writeFile(path: string, data: Buffer, options: WriteFileOptions, callback: NoParamCallback): void;
 }

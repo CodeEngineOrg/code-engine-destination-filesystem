@@ -1,6 +1,7 @@
 import { Filter } from "@code-engine/types";
 import { validate } from "@code-engine/validate";
 import * as nodeFS from "fs";
+import { MakeDirectoryOptions, WriteFileOptions } from "fs"; // tslint:disable-line: no-duplicate-imports
 import { promisify } from "util";
 import { FileSystemConfig, FS } from "./config";
 
@@ -44,7 +45,7 @@ export interface NormalizedConfig {
 export interface FSPromises extends FS {
   promises: {
     // tslint:disable: completed-docs
-    mkdir(path: string, option: nodeFS.MakeDirectoryOptions): Promise<void>;
-    writeFile(path: string, data: Buffer, options: object): Promise<void>;
+    mkdir(path: string, option: MakeDirectoryOptions): Promise<void>;
+    writeFile(path: string, data: Buffer, options: WriteFileOptions): Promise<void>;
   };
 }

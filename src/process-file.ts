@@ -26,7 +26,7 @@ export function processFile(config: NormalizedConfig): FileProcessor {
 async function writeFile(path: string, contents: Buffer, fs: FSPromises, retry = true): Promise<void> {
   try {
     // Try to write the file
-    await fs.promises.writeFile(path, contents, { mode: "w" });
+    await fs.promises.writeFile(path, contents, { flag: "w" });
   }
   catch (e) {
     let error = e as NodeJS.ErrnoException;

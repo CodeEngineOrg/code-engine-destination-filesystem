@@ -6,7 +6,7 @@ const { assert, expect } = require("chai");
 const { normalize, resolve, dirname } = require("path");
 const sinon = require("sinon");
 
-describe.only("fs option", () => {
+describe("fs option", () => {
 
   it("should use custom filesystem functions", async () => {
     let source = {

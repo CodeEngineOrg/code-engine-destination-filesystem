@@ -2,9 +2,9 @@
 
 const filesystem = require("../../");
 const CodeEngine = require("@code-engine/lib");
-const { createDir, readDir } = require("../utils");
+const createDir = require("../utils/create-dir");
 const { expect } = require("chai");
-const { join, normalize } = require("path");
+const { join } = require("path");
 const { promises: fs } = require("fs");
 
 const KB = 1024;
@@ -36,8 +36,7 @@ describe("Filesystem Destination plugin", () => {
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    let files = await readDir(dir);
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "file1.txt",
       "file2.html",
       "file3.jpg",
@@ -72,11 +71,10 @@ describe("Filesystem Destination plugin", () => {
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    let files = await readDir(dir);
-    expect(files).to.have.same.members([
-      normalize("subdir/file1.txt"),
-      normalize("sub/dir/file2.html"),
-      normalize("deep/sub/dir/file3.jpg"),
+    expect(dir).to.have.deep.files([
+      "subdir/file1.txt",
+      "sub/dir/file2.html",
+      "deep/sub/dir/file3.jpg",
     ]);
 
     // Check the contents of each file
@@ -108,8 +106,7 @@ describe("Filesystem Destination plugin", () => {
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    let files = await readDir(dir);
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "file1.txt",
       "file2.html",
       "file3.jpg",
@@ -144,11 +141,10 @@ describe("Filesystem Destination plugin", () => {
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    let files = await readDir(dir);
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       ".gitignore",
-      normalize("package/.npmrc"),
-      normalize("package/.eslintrc"),
+      "package/.npmrc",
+      "package/.eslintrc",
     ]);
 
     // Check the contents of each file

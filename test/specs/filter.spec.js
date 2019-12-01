@@ -2,9 +2,8 @@
 
 const filesystem = require("../../");
 const CodeEngine = require("@code-engine/lib");
-const { createDir, readDir } = require("../utils");
+const createDir = require("../utils/create-dir");
 const { expect } = require("chai");
-const { normalize } = require("path");
 
 describe("filter option", () => {
 
@@ -41,21 +40,20 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "robots.txt",
       "index.html",
       "about.html",
-      normalize("img/logo.png"),
-      normalize("product1/index.html"),
-      normalize("product1/about.html"),
-      normalize("product1/img/front.jpg"),
-      normalize("product1/img/back.jpg"),
-      normalize("product2/index.html"),
-      normalize("product2/about.html"),
-      normalize("product2/img/front.jpg"),
-      normalize("product2/img/back.jpg"),
+      "img/logo.png",
+      "product1/index.html",
+      "product1/about.html",
+      "product1/img/front.jpg",
+      "product1/img/back.jpg",
+      "product2/index.html",
+      "product2/about.html",
+      "product2/img/front.jpg",
+      "product2/img/back.jpg",
     ]);
   });
 
@@ -67,21 +65,20 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "robots.txt",
       "index.html",
       "about.html",
-      normalize("img/logo.png"),
-      normalize("product1/index.html"),
-      normalize("product1/about.html"),
-      normalize("product1/img/front.jpg"),
-      normalize("product1/img/back.jpg"),
-      normalize("product2/index.html"),
-      normalize("product2/about.html"),
-      normalize("product2/img/front.jpg"),
-      normalize("product2/img/back.jpg"),
+      "img/logo.png",
+      "product1/index.html",
+      "product1/about.html",
+      "product1/img/front.jpg",
+      "product1/img/back.jpg",
+      "product2/index.html",
+      "product2/about.html",
+      "product2/img/front.jpg",
+      "product2/img/back.jpg",
     ]);
   });
 
@@ -93,9 +90,8 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.lengthOf(0);
+    expect(dir).to.be.a.directory().and.empty;
   });
 
   it("should write all files that match the glob pattern", async () => {
@@ -106,14 +102,13 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
-      normalize("img/logo.png"),
-      normalize("product1/img/front.jpg"),
-      normalize("product1/img/back.jpg"),
-      normalize("product2/img/front.jpg"),
-      normalize("product2/img/back.jpg"),
+    expect(dir).to.have.deep.files([
+      "img/logo.png",
+      "product1/img/front.jpg",
+      "product1/img/back.jpg",
+      "product2/img/front.jpg",
+      "product2/img/back.jpg",
     ]);
   });
 
@@ -130,16 +125,15 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "index.html",
-      normalize("product1/index.html"),
-      normalize("product1/about.html"),
-      normalize("product1/img/front.jpg"),
-      normalize("product2/index.html"),
-      normalize("product2/about.html"),
-      normalize("product2/img/front.jpg"),
+      "product1/index.html",
+      "product1/about.html",
+      "product1/img/front.jpg",
+      "product2/index.html",
+      "product2/about.html",
+      "product2/img/front.jpg",
     ]);
   });
 
@@ -151,11 +145,10 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
-      normalize("product2/index.html"),
-      normalize("product2/about.html"),
+    expect(dir).to.have.deep.files([
+      "product2/index.html",
+      "product2/about.html",
     ]);
   });
 
@@ -176,16 +169,15 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "index.html",
-      normalize("product1/index.html"),
-      normalize("product1/about.html"),
-      normalize("product1/img/front.jpg"),
-      normalize("product2/index.html"),
-      normalize("product2/about.html"),
-      normalize("product2/img/front.jpg"),
+      "product1/index.html",
+      "product1/about.html",
+      "product1/img/front.jpg",
+      "product2/index.html",
+      "product2/about.html",
+      "product2/img/front.jpg",
     ]);
   });
 
@@ -202,12 +194,11 @@ describe("filter option", () => {
     });
 
     await generateWebsite(destination);
-    let files = await readDir(dir);
 
-    expect(files).to.have.same.members([
+    expect(dir).to.have.deep.files([
       "index.html",
-      normalize("product1/index.html"),
-      normalize("product2/index.html"),
+      "product1/index.html",
+      "product2/index.html",
     ]);
   });
 

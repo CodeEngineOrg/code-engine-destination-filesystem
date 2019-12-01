@@ -160,6 +160,7 @@ describe("Filesystem Destination plugin", () => {
   it("should write very large text files", async function () {
     // Increase the timeout to allow time for filling, writing, & reading such large strings
     this.timeout(60000);
+    console.log("\n    NOTE: This test takes a while...");
 
     let dir = await createDir();
 
@@ -190,6 +191,7 @@ describe("Filesystem Destination plugin", () => {
   it("should write very large binary files", async function () {
     // Increase the timeout to allow time for filling, writing, & reading such large arrays
     this.timeout(60000);
+    console.log("\n    NOTE: This test takes a while...");
 
     let dir = await createDir();
 

@@ -1,7 +1,7 @@
 "use strict";
 
 const filesystem = require("../../");
-const CodeEngine = require("@code-engine/lib");
+const { CodeEngine } = require("@code-engine/lib");
 const createDir = require("../utils/create-dir");
 const { expect } = require("chai");
 const { join } = require("path");

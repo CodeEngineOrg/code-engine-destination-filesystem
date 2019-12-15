@@ -66,6 +66,7 @@
     "version-bump-prompt": "^5.0.6"
   },
   "dependencies": {
-    "@code-engine/validate": "^1.0.0"
+    "@code-engine/validate": "^1.0.0",
+    "trash": "^6.1.1"
   }
 }

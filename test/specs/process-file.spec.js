@@ -14,7 +14,7 @@ const GB = 1024 * MB;
 describe("Filesystem Destination plugin", () => {
 
   it("should write files to the output directory", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let source = {
       read () {
@@ -27,29 +27,29 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: "dist",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    expect(dir).to.have.deep.files([
-      "file1.txt",
-      "file2.html",
-      "file3.jpg",
+    expect(cwd).to.have.deep.files([
+      "dist/file1.txt",
+      "dist/file2.html",
+      "dist/file3.jpg",
     ]);
 
     // Check the contents of each file
-    expect(await fs.readFile(join(dir, "file1.txt"), "utf8")).to.equal("Hello, world!");
-    expect(await fs.readFile(join(dir, "file2.html"), "utf8")).to.equal("<h1>Hello, world!</h1>");
-    expect(await fs.readFile(join(dir, "file3.jpg"), "utf8")).to.equal("Hello, world!");
+    expect(await fs.readFile(join(cwd, "dist/file1.txt"), "utf8")).to.equal("Hello, world!");
+    expect(await fs.readFile(join(cwd, "dist/file2.html"), "utf8")).to.equal("<h1>Hello, world!</h1>");
+    expect(await fs.readFile(join(cwd, "dist/file3.jpg"), "utf8")).to.equal("Hello, world!");
   });
 
   it("should write files to sub-directories", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let source = {
       read () {
@@ -62,29 +62,29 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: "dist",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    expect(dir).to.have.deep.files([
-      "subdir/file1.txt",
-      "sub/dir/file2.html",
-      "deep/sub/dir/file3.jpg",
+    expect(cwd).to.have.deep.files([
+      "dist/subdir/file1.txt",
+      "dist/sub/dir/file2.html",
+      "dist/deep/sub/dir/file3.jpg",
     ]);
 
     // Check the contents of each file
-    expect(await fs.readFile(join(dir, "subdir/file1.txt"), "utf8")).to.equal("Hello, world!");
-    expect(await fs.readFile(join(dir, "sub/dir/file2.html"), "utf8")).to.equal("<h1>Hello, world!</h1>");
-    expect(await fs.readFile(join(dir, "deep/sub/dir/file3.jpg"), "utf8")).to.equal("Hello, world!");
+    expect(await fs.readFile(join(cwd, "dist/subdir/file1.txt"), "utf8")).to.equal("Hello, world!");
+    expect(await fs.readFile(join(cwd, "dist/sub/dir/file2.html"), "utf8")).to.equal("<h1>Hello, world!</h1>");
+    expect(await fs.readFile(join(cwd, "dist/deep/sub/dir/file3.jpg"), "utf8")).to.equal("Hello, world!");
   });
 
   it("should write empty files", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let source = {
       read () {
@@ -97,29 +97,29 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: "output",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    expect(dir).to.have.deep.files([
-      "file1.txt",
-      "file2.html",
-      "file3.jpg",
+    expect(cwd).to.have.deep.files([
+      "output/file1.txt",
+      "output/file2.html",
+      "output/file3.jpg",
     ]);
 
     // Check the contents of each file
-    expect(await fs.readFile(join(dir, "file1.txt"))).to.deep.equal(Buffer.alloc(0));
-    expect(await fs.readFile(join(dir, "file2.html"))).to.deep.equal(Buffer.alloc(0));
-    expect(await fs.readFile(join(dir, "file3.jpg"))).to.deep.equal(Buffer.alloc(0));
+    expect(await fs.readFile(join(cwd, "output/file1.txt"))).to.deep.equal(Buffer.alloc(0));
+    expect(await fs.readFile(join(cwd, "output/file2.html"))).to.deep.equal(Buffer.alloc(0));
+    expect(await fs.readFile(join(cwd, "output/file3.jpg"))).to.deep.equal(Buffer.alloc(0));
   });
 
   it("should write dotfiles", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let source = {
       read () {
@@ -132,25 +132,25 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: ".dotdir",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
     // Make sure the output directory contains exactly what we expect
-    expect(dir).to.have.deep.files([
-      ".gitignore",
-      "package/.npmrc",
-      "package/.eslintrc",
+    expect(cwd).to.have.deep.files([
+      ".dotdir/.gitignore",
+      ".dotdir/package/.npmrc",
+      ".dotdir/package/.eslintrc",
     ]);
 
     // Check the contents of each file
-    expect(await fs.readFile(join(dir, ".gitignore"), "utf8")).to.equal("*.log");
-    expect(await fs.readFile(join(dir, "package/.npmrc"), "utf8")).to.equal("registry=npmjs.org");
-    expect(await fs.readFile(join(dir, "package/.eslintrc"), "utf8")).to.equal("extends: eslint/recommended");
+    expect(await fs.readFile(join(cwd, ".dotdir/.gitignore"), "utf8")).to.equal("*.log");
+    expect(await fs.readFile(join(cwd, ".dotdir/package/.npmrc"), "utf8")).to.equal("registry=npmjs.org");
+    expect(await fs.readFile(join(cwd, ".dotdir/package/.eslintrc"), "utf8")).to.equal("extends: eslint/recommended");
   });
 
   it("should write very large text files", async function () {
@@ -158,7 +158,7 @@ describe("Filesystem Destination plugin", () => {
     this.timeout(60000);
     console.log("\n    NOTE: This test takes a while...");
 
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let bigText = "A".repeat(100 * MB);
 
@@ -171,15 +171,15 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: "dist",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
-    let actualText = await fs.readFile(join(dir, "file"), "utf8");
+    let actualText = await fs.readFile(join(cwd, "dist/file"), "utf8");
     expect(actualText).to.have.lengthOf(100 * MB);
     expect(actualText).to.equal(bigText);
   });
@@ -189,7 +189,7 @@ describe("Filesystem Destination plugin", () => {
     this.timeout(60000);
     console.log("\n    NOTE: This test takes a while...");
 
-    let dir = await createDir();
+    let cwd = await createDir();
 
     let bigBinary = Buffer.from(new Uint8Array(1 * GB).fill(1));
 
@@ -202,15 +202,15 @@ describe("Filesystem Destination plugin", () => {
     };
 
     let destination = filesystem({
-      path: dir,
+      path: "dist",
       filter: undefined,
     });
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
 
-    let actualBinary = await fs.readFile(join(dir, "file"));
+    let actualBinary = await fs.readFile(join(cwd, "dist/file"));
     expect(actualBinary).to.have.lengthOf(1 * GB);
     expect(actualBinary).to.deep.equal(bigBinary);
   });

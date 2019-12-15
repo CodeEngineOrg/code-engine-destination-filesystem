@@ -7,7 +7,7 @@ const { expect } = require("chai");
 
 describe("filter option", () => {
 
-  async function generateWebsite (destination) {
+  async function generateWebsite (cwd, destination) {
     let source = {
       read () {
         return [
@@ -27,21 +27,21 @@ describe("filter option", () => {
       }
     };
 
-    let engine = new CodeEngine();
+    let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.build();
   }
 
   it("should write all files by default", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: undefined,
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "robots.txt",
       "index.html",
       "about.html",
@@ -58,15 +58,15 @@ describe("filter option", () => {
   });
 
   it("should write all files if the filter is true", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: true,
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "robots.txt",
       "index.html",
       "about.html",
@@ -83,27 +83,27 @@ describe("filter option", () => {
   });
 
   it("should not write any files if the filter is false", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: false,
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.be.a.directory().and.empty;
+    expect(cwd).to.be.a.directory().and.empty;
   });
 
   it("should write all files that match the glob pattern", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: "**/*.{png,jpg}"
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "img/logo.png",
       "product1/img/front.jpg",
       "product1/img/back.jpg",
@@ -113,9 +113,9 @@ describe("filter option", () => {
   });
 
   it("should write all files that match multiple glob patterns", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: [
         "**/*.html",
         "**/*.jpg",
@@ -124,9 +124,9 @@ describe("filter option", () => {
       ]
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "index.html",
       "product1/index.html",
       "product1/about.html",
@@ -138,24 +138,24 @@ describe("filter option", () => {
   });
 
   it("should write all files that match the regular expression", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: /^product2[\\/].*\.html/,
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "product2/index.html",
       "product2/about.html",
     ]);
   });
 
   it("should write all files that match the include/exclude criteria", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter: {
         include: [
           "**/*.html",
@@ -168,9 +168,9 @@ describe("filter option", () => {
       },
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "index.html",
       "product1/index.html",
       "product1/about.html",
@@ -182,9 +182,9 @@ describe("filter option", () => {
   });
 
   it("should write all files that match the custom filter criteria", async () => {
-    let dir = await createDir();
+    let cwd = await createDir();
     let destination = filesystem({
-      path: dir,
+      path: ".",
       filter (file, context) {
         expect(file).to.be.a("file");
         expect(context).to.be.an("object").and.include.keys("cwd", "dev", "debug", "fullBuild");
@@ -193,9 +193,9 @@ describe("filter option", () => {
       },
     });
 
-    await generateWebsite(destination);
+    await generateWebsite(cwd, destination);
 
-    expect(dir).to.have.deep.files([
+    expect(cwd).to.have.deep.files([
       "index.html",
       "product1/index.html",
       "product2/index.html",

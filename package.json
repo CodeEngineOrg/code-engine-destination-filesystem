@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@code-engine/validate": "^1.0.0",
+    "ono": "^5.1.0",
     "trash": "^6.1.1"
   }
 }

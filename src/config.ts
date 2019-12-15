@@ -1,5 +1,5 @@
 import { Filter } from "@code-engine/types";
-import { MakeDirectoryOptions, NoParamCallback, WriteFileOptions } from "fs";
+import { MakeDirectoryOptions, NoParamCallback, Stats, WriteFileOptions } from "fs";
 
 /**
  * Configuration for the fileystem destination plugin.
@@ -32,6 +32,11 @@ export interface FileSystemConfig {
  */
 export interface FS {
   /**
+   * Returns filesystem information about a directory entry.
+   */
+  stat(path: string, callback: Callback<Stats>): void;
+
+  /**
    * Creates a directory. Also creates its parent directories if the `recursive` option is set.
    */
   mkdir(path: string, options: MakeDirectoryOptions, callback: NoParamCallback): void;
@@ -41,3 +46,8 @@ export interface FS {
    */
   writeFile(path: string, data: Buffer, options: WriteFileOptions, callback: NoParamCallback): void;
 }
+
+/**
+ * An error-first callback function.
+ */
+export declare type Callback<T> = (err: Error | null, result: T) => void;

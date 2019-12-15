@@ -3,7 +3,7 @@
 const filesystem = require("../../lib");
 const { CodeEngine } = require("@code-engine/lib");
 const createDir = require("../utils/create-dir");
-const { expect } = require("chai");
+const { assert, expect } = require("chai");
 const { join } = require("path");
 const { promises: fs } = require("fs");
 
@@ -15,6 +15,20 @@ describe("plugin.clean()", () => {
       "output/subdir/file2.txt",
       "output/sub/dir/file3.txt",
     ]);
+
+    let destination = filesystem({
+      path: "output",
+    });
+
+    let engine = new CodeEngine({ cwd });
+    await engine.use(destination);
+    await engine.clean();
+
+    expect(cwd).to.be.a.directory().and.empty;
+  });
+
+  it("should do nothing if the output directory does not exist", async () => {
+    let cwd = await createDir();
 
     let destination = filesystem({
       path: "output",
@@ -67,6 +81,33 @@ describe("plugin.clean()", () => {
     expect(await fs.readFile(join(cwd, "dist/file.txt"), "utf8")).to.equal("Hello, world");
     expect(await fs.readFile(join(cwd, "dist/subdir/file.txt"), "utf8")).to.equal("Hello subdir");
     expect(await fs.readFile(join(cwd, "dist/sub/dir/file.txt"), "utf8")).to.equal("Hello deep subdir");
+  });
+
+  it("should error if the output directory is not a directory", async () => {
+    let cwd = await createDir([
+      { path: "output", contents: "I'm not a directory. I'm a file." },
+    ]);
+
+    let destination = filesystem({
+      path: "output",
+    });
+
+    let engine = new CodeEngine({ cwd });
+    await engine.use(destination);
+
+    try {
+      await engine.clean();
+      assert.fail("An error should have been thrown");
+    }
+    catch (error) {
+      expect(error).to.be.an.instanceOf(Error);
+      expect(error.code).to.equal("ENOTDIR");
+      expect(error.path).to.equal(join(cwd, "output"));
+      expect(error.message).to.equal(
+        "An error occurred in Filesystem Destination while cleaning the destination. \n" +
+        `The destination path is not a directory: ${join(cwd, "output")}`
+      );
+    }
   });
 
 });

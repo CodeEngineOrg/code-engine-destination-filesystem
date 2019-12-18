@@ -1,6 +1,17 @@
 CodeEngine Filesystem Destination
 ======================================
 
+[![Cross-Platform Compatibility](https://engine.codes/img/badges/os-badges.svg)](https://travis-ci.com/CodeEngineOrg/code-engine-destination-filesystem)
+[![Build Status](https://api.travis-ci.com/CodeEngineOrg/code-engine-destination-filesystem.svg?branch=master)](https://travis-ci.com/CodeEngineOrg/code-engine-destination-filesystem)
+
+[![Coverage Status](https://coveralls.io/repos/github/CodeEngineOrg/code-engine-destination-filesystem/badge.svg?branch=master)](https://coveralls.io/github/CodeEngineOrg/code-engine-destination-filesystem)
+[![Dependencies](https://david-dm.org/CodeEngineOrg/code-engine-destination-filesystem.svg)](https://david-dm.org/CodeEngineOrg/code-engine-destination-filesystem)
+
+[![npm](https://img.shields.io/npm/v/code-engine-destination-filesystem.svg)](https://www.npmjs.com/package/code-engine-destination-filesystem)
+[![License](https://img.shields.io/npm/l/code-engine-destination-filesystem.svg)](LICENSE)
+
+
+
 This is a [CodeEngine](https://engine.codes/) plugin that writes files to the filesystem (local disk or network).
 
 > **NOTE:** This plugin is already built-into the [CodeEngine CLI](https://github.com/CodeEngineOrg/code-engine/wiki/Command-Line-Interface), so you may not need to use it directly unless you are using CodeEngine's [programmatic API](https://github.com/CodeEngineOrg/code-engine/wiki/Programmatic-API).

@@ -32,7 +32,7 @@ describe("fs option", () => {
 
     let engine = new CodeEngine();
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     sinon.assert.notCalled(myCustomFS.mkdir);
     sinon.assert.callCount(myCustomFS.writeFile, 4);
@@ -97,7 +97,7 @@ describe("fs option", () => {
 
     let engine = new CodeEngine();
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     sinon.assert.callCount(myCustomFS.mkdir, 3);
 
@@ -137,7 +137,7 @@ describe("fs option", () => {
     await engine.use(source, destination);
 
     try {
-      await engine.build();
+      await engine.run();
       assert.fail("An error should have been thrown");
     }
     catch (error) {
@@ -167,7 +167,7 @@ describe("fs option", () => {
     await engine.use(source, destination);
 
     try {
-      await engine.build();
+      await engine.run();
       assert.fail("An error should have been thrown");
     }
     catch (error) {

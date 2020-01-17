@@ -29,7 +29,7 @@ describe("filter option", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
   }
 
   it("should write all files by default", async () => {
@@ -187,7 +187,7 @@ describe("filter option", () => {
       path: ".",
       filter (file, context) {
         expect(file).to.be.a("file");
-        expect(context).to.be.an("object").and.include.keys("cwd", "dev", "debug", "fullBuild");
+        expect(context).to.be.an("object").and.include.keys("cwd", "concurrency", "dev", "debug");
 
         return file.name.includes("index.html");
       },

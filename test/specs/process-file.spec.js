@@ -33,7 +33,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -68,7 +68,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -103,7 +103,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -138,7 +138,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -177,7 +177,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     let actualText = await fs.readFile(join(cwd, "dist/file"), "utf8");
     expect(actualText).to.have.lengthOf(100 * MB);
@@ -208,7 +208,7 @@ describe("Filesystem Destination plugin", () => {
 
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
-    await engine.build();
+    await engine.run();
 
     let actualBinary = await fs.readFile(join(cwd, "dist/file"));
     expect(actualBinary).to.have.lengthOf(1 * GB);

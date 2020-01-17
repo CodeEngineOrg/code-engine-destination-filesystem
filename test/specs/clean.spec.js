@@ -68,7 +68,7 @@ describe("plugin.clean()", () => {
     let engine = new CodeEngine({ cwd });
     await engine.use(source, destination);
     await engine.clean();
-    await engine.build();
+    await engine.run();
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([

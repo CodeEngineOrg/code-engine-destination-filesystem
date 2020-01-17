@@ -1,22 +1,4 @@
-import { Plugin } from "@code-engine/types";
-import { clean } from "./clean";
-import { FileSystemConfig } from "./config";
-import { normalizeConfig } from "./normalize-config";
-import { processFile } from "./process-file";
-
-/**
- * A CodeEngine plugin that writes files to the filesystem.
- */
-function filesystem(conf?: FileSystemConfig): Plugin {
-  let config = normalizeConfig(conf);
-
-  return {
-    name: "Filesystem Destination",
-    filter: config.filter,
-    processFile: processFile(config),
-    clean: clean(config),
-  };
-}
+import { filesystem } from "./plugin";
 
 // Named exports
 export * from "./config";

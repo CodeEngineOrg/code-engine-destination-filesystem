@@ -4,8 +4,9 @@ const filesystem = require("../../");
 const { CodeEngine } = require("@code-engine/lib");
 const createDir = require("../utils/create-dir");
 const { expect } = require("chai");
-const { join } = require("path");
+const { join, normalize } = require("path");
 const { promises: fs } = require("fs");
+const sinon = require("sinon");
 
 const KB = 1024;
 const MB = 1024 * KB;
@@ -32,8 +33,15 @@ describe("Filesystem Destination plugin", () => {
     });
 
     let engine = new CodeEngine({ cwd });
-    await engine.use(source, destination);
+    let spy = sinon.spy();
+    await engine.use(source, destination, spy);
     await engine.run();
+
+    // Make sure all three files were output
+    sinon.assert.calledThrice(spy);
+    sinon.assert.calledWith(spy, sinon.match({ path: "file1.txt", text: "Hello, world!" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: "file2.html", text: "<h1>Hello, world!</h1>" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: "file3.jpg", text: "Hello, world!" }));
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -67,8 +75,16 @@ describe("Filesystem Destination plugin", () => {
     });
 
     let engine = new CodeEngine({ cwd });
-    await engine.use(source, destination);
+    let spy = sinon.spy();
+    await engine.use(source, destination, spy);
     await engine.run();
+
+    // Make sure all three files were output
+    sinon.assert.calledThrice(spy);
+    sinon.assert.calledWith(spy, sinon.match({ path: normalize("subdir/file1.txt"), text: "Hello, world!" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: normalize("sub/dir/file2.html"), text: "<h1>Hello, world!</h1>" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: normalize("deep/sub/dir/file3.jpg"), text: "Hello, world!" }));
+
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -102,8 +118,15 @@ describe("Filesystem Destination plugin", () => {
     });
 
     let engine = new CodeEngine({ cwd });
-    await engine.use(source, destination);
+    let spy = sinon.spy();
+    await engine.use(source, destination, spy);
     await engine.run();
+
+    // Make sure all three files were output
+    sinon.assert.calledThrice(spy);
+    sinon.assert.calledWith(spy, sinon.match({ path: "file1.txt", text: "" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: "file2.html", text: "" }));
+    sinon.assert.calledWith(spy, sinon.match({ path: "file3.jpg", text: "" }));
 
     // Make sure the output directory contains exactly what we expect
     expect(cwd).to.have.deep.files([
@@ -137,7 +160,8 @@ describe("Filesystem Destination plugin", () => {
     });
 
     let engine = new CodeEngine({ cwd });
-    await engine.use(source, destination);
+    let spy = sinon.spy();
+    await engine.use(source, destination, spy);
     await engine.run();
 
     // Make sure the output directory contains exactly what we expect

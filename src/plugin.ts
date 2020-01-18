@@ -27,6 +27,7 @@ export function filesystem(conf?: FileSystemConfig): Plugin {
      */
     async processFile(file: File, run: Run) {
       await writeFile(dir, file, config.fs);
+      return file;
     },
 
     /**

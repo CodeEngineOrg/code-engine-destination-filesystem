@@ -1,4 +1,4 @@
-import { ono } from "ono";
+import { ono } from "@jsdevtools/ono";
 import * as trash from "trash";
 import { FSPromises } from "./normalize-config";
 

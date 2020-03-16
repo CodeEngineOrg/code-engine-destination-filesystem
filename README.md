@@ -9,6 +9,7 @@ CodeEngine Filesystem Destination
 
 [![npm](https://img.shields.io/npm/v/code-engine-destination-filesystem.svg)](https://www.npmjs.com/package/code-engine-destination-filesystem)
 [![License](https://img.shields.io/npm/l/code-engine-destination-filesystem.svg)](LICENSE)
+[![Buy us a tree](https://img.shields.io/badge/Treeware-%F0%9F%8C%B3-lightgreen)](https://plant.treeware.earth/CodeEngineOrg/code-engine-destination-filesystem)
 
 
 
@@ -173,7 +174,9 @@ To build the project locally on your computer:
 
 License
 --------------------------
-code-engine-destination-filesystem is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+Code Engine Destination Filesystem is 100% free and open-source, under the [MIT license](LICENSE). Use it however you want.
+
+This package is [Treeware](http://treeware.earth). If you use it in production, then we ask that you [**buy the world a tree**](https://plant.treeware.earth/CodeEngineOrg/code-engine-destination-filesystem) to thank us for our work. By contributing to the Treeware forest you’ll be creating employment for local families and restoring wildlife habitats.
 
 
 

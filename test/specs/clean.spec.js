@@ -24,7 +24,7 @@ describe("plugin.clean()", () => {
     await engine.use(destination);
     await engine.clean();
 
-    expect(cwd).to.be.a.directory().and.empty;
+    expect(cwd).to.be.a.directory().and.empty;    // eslint-disable-line no-unused-expressions
   });
 
   it("should do nothing if the output directory does not exist", async () => {
@@ -38,7 +38,7 @@ describe("plugin.clean()", () => {
     await engine.use(destination);
     await engine.clean();
 
-    expect(cwd).to.be.a.directory().and.empty;
+    expect(cwd).to.be.a.directory().and.empty;    // eslint-disable-line no-unused-expressions
   });
 
   it("should overwrite files in the output directory", async () => {

@@ -91,7 +91,7 @@ describe("filter option", () => {
 
     await generateWebsite(cwd, destination);
 
-    expect(cwd).to.be.a.directory().and.empty;
+    expect(cwd).to.be.a.directory().and.empty;  // eslint-disable-line no-unused-expressions
   });
 
   it("should write all files that match the glob pattern", async () => {

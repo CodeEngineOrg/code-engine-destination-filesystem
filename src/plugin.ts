@@ -1,4 +1,4 @@
-import { File, Plugin, Run } from "@code-engine/types";
+import { File, Plugin } from "@code-engine/types";
 import { resolve } from "path";
 import { clean } from "./clean";
 import { FileSystemConfig } from "./config";
@@ -25,7 +25,7 @@ export function filesystem(conf?: FileSystemConfig): Plugin {
     /**
      * Writes a file to the filesystem, creating parent directories if needed.
      */
-    async processFile(file: File, run: Run) {
+    async processFile(file: File) {
       await writeFile(dir, file, config.fs);
       return file;
     },

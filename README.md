@@ -1,8 +1,8 @@
 CodeEngine Filesystem Destination
 ======================================
 
-[![Cross-Platform Compatibility](https://engine.codes/img/badges/os-badges.svg)](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/blob/master/.github/workflows/CI-CD.yaml)
-[![Build Status](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/workflows/CI-CD/badge.svg)](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/blob/master/.github/workflows/CI-CD.yaml)
+[![Cross-Platform Compatibility](https://engine.codes/img/badges/os-badges.svg)](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/actions)
+[![Build Status](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/workflows/CI-CD/badge.svg)](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/actions)
 
 [![Coverage Status](https://coveralls.io/repos/github/CodeEngineOrg/code-engine-destination-filesystem/badge.svg?branch=master)](https://coveralls.io/github/CodeEngineOrg/code-engine-destination-filesystem)
 [![Dependencies](https://david-dm.org/CodeEngineOrg/code-engine-destination-filesystem.svg)](https://david-dm.org/CodeEngineOrg/code-engine-destination-filesystem)
@@ -153,7 +153,7 @@ This option allows you to provide your own custom implementation of the [Node.js
 
 Contributing
 --------------------------
-Contributions, enhancements, and bug-fixes are welcome!  [File an issue](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/issues) on GitHub and [submit a pull request](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/pulls).
+Contributions, enhancements, and bug-fixes are welcome!  [Open an issue](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/issues) on GitHub and [submit a pull request](https://github.com/CodeEngineOrg/code-engine-destination-filesystem/pulls).
 
 #### Building
 To build the project locally on your computer:
